@@ -21,11 +21,62 @@ There are a number of reasons for wanting to avoid vendor lock in including:
 
 ## Usage
 
-To force the Parse SDK to communicate with `https://api.example.com/` put the
-following code in your application delegate `application:didFinishLaunchingWithOptions`
+When you first use ParsePort you'll be happy for your app to use Parse, but
+ParsePort allows you to build in the flexibility to leave Parse later without
+cutting a new app binary. A good strategy is to pair ParsePort with 
+[GroundControl](https://github.com/mattt/GroundControl) by the prolific
+[Mattt Thompson](https://github.com/mattt), 
+
+### Client code
+
+In your application delegate `application:didFinishLaunchingWithOptions` method:
 
 ```obj-c
 #import <ParsePort.h>
 
-[ParsePort useURL:[NSURL URLWithString:@"https://api.example.com/"]];
+NSString * const kParsePortURL = @"parsePortURL"
+
+NSURL *URL = [NSURL URLWithString:@"http://example.com/defaults.plist"];
+
+[[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:URL];
+
+NSURL * parsePortURL = [[[NSUserDefaults] standardUserDefaults]]
+                                          URLForKey:kParsePortURL];
+                                          
+if(parsePortURL) [ParsePort useURL:[NSURL URLWithString:parsePortURL]];
 ```
+
+### Server Code
+
+The following Sinatra app will force the Parse SDK to talk to your servers
+without having to release a new app binary.
+
+```ruby
+require 'sinatra'
+require 'plist'
+
+get '/defaults.plist' do
+  content_type 'application/x-plist'
+
+  { parsePortURL: 'http://api.example.com/' }.to_plist
+end
+```
+
+### Caveats
+
+This is only the client portion of a Parse migration. In true lean fashion
+I haven't built the server component because I don't need it yet; I'm very
+happy with Parse but the peace of mind knowing I have the option of a simpler
+migration should the need arise makes me sleep easier at night.
+
+If the time comes when I need to move apps from Parse, I would start by looking
+at [Helios](https://github.com/helios-framework/helios) (again by Mattt), and
+use some Rack middleware to make any mappings.
+
+### Contact
+
+[@stevegraham](https://twitter.com/stevegraham)
+
+
+
+
