@@ -5,7 +5,7 @@ A killswitch for Parse.
 Parse is an incredible platform that removes a lot of headache for building 
 backend services for your apps. As great as Parse is, using it unfortunately
 locks you into their platform in perpetuity, i.e. As long as you have users
-in the wild with app binaries using the Parse SDK your stuck with Parse.
+in the wild with app binaries using the Parse SDK you're stuck with Parse.
 
 There are a number of reasons for wanting to avoid vendor lock in including:
 
