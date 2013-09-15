@@ -1,6 +1,7 @@
 # ParsePort 
 
-A killswitch for Parse.
+A killswitch for Parse. Have your app talk to your servers instead when you
+outgrow Parse, all without shipping a new binary or changing a line of code.
 
 Parse is an incredible platform that removes a lot of headache for building 
 backend services for your apps. As great as Parse is, using it unfortunately
