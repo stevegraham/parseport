@@ -3,6 +3,11 @@
 A killswitch for Parse. Have your app talk to your servers instead when you
 outgrow Parse, all without shipping a new binary or changing a line of code.
 
+```
+IMPORTANT! This swizzles a private Parse API and could break with any new release of the
+Parse SDK. If it does, please open an issue so I know to fix it.
+```
+
 Parse is an incredible platform that removes a lot of headache for building 
 backend services for your apps. As great as Parse is, using it unfortunately
 locks you into their platform in perpetuity, i.e. As long as you have users
